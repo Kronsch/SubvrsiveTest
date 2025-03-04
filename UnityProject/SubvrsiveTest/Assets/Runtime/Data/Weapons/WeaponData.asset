@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63d9f42411ccd0428e55775580eff7c, type: 3}
   m_Name: WeaponData
   m_EditorClassIdentifier: 
-  _attackSpeed: 1
+  _attackSpeed: 0.2
   _damage: 1
   _range: 5
-  _bulletVelocity: 1
+  _bulletSpeed: 8

@@ -34,14 +34,15 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.TestComponents
             int combatantsLeft = spawnCount;
             while(combatantsLeft > 0)
             {
-                SpawnCombatant(_combatantData, GetRandomSpawnPosition());
+                SpawnCombatant(_combatantData, GetRandomSpawnPosition(), combatantsLeft);
                 combatantsLeft -= 1;
             }
         }
 
-        private void SpawnCombatant(CombatantData combatantData, Vector3 position)
+        private void SpawnCombatant(CombatantData combatantData, Vector3 position, int pawnID)
         {
             var combatant = Instantiate(combatantData._prefab, position, Quaternion.identity);
+            combatant.PawnID = pawnID;
             combatant.InitializePawn(combatantData);
         }
 

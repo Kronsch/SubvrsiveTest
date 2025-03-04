@@ -1,3 +1,4 @@
+using System;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.Logging;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,13 +8,20 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
     {
         [SerializeField] protected NavMeshAgent _navMeshAgent;
 
+        private int _id;
         private float _moveSpeed;
         private float _turnSpeed;
 
         protected IPawn CurrentTarget;
-
-        public bool DebugLogsEnabled { get; set; } = true;
         
+        public int PawnID
+        {
+            get => _id;
+            set => _id = value;
+        }
+        
+        public bool DebugLogsEnabled { get; set; } = true;
+
         public virtual void InitializePawn(PawnData pawnData)
         {
             _moveSpeed = pawnData._moveSpeed;

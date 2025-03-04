@@ -24,7 +24,7 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
             {
                 Hp.Value = combatantData._maxHp;
                 MaxHp.Value = combatantData._maxHp;
-                _weapon.InitializeWeapon(combatantData._weaponData);
+                _weapon.InitializeWeapon(combatantData._weaponData, this);
             }
         }
         

@@ -1,3 +1,4 @@
+using SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns;
 using UnityEngine;
 namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Projectiles
 {
@@ -10,10 +11,17 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Projectiles
         [SerializeField] private float _launchSpeed;
         [SerializeField] private int _damage;
 
+        private int _sourcePawnID;
+
         public void InitializeProjectileLauncher(int damage, float launchSpeed)
         {
             _damage = damage;
             _launchSpeed = launchSpeed;
+        }
+
+        public void SetSourcePawn(IPawn pawn)
+        {
+            _sourcePawnID = pawn.PawnID;
         }
 
         public void Fire()
@@ -26,7 +34,7 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Projectiles
         {
             var newProjectile = Instantiate(_projectilePrefab, _gunpoint.position, Quaternion.identity);
             var worldSpaceLaunchDirection = _gunpoint.TransformDirection(_launchDirection);
-            newProjectile.InitializeProjectile(worldSpaceLaunchDirection.normalized * _launchSpeed, _damage);
+            newProjectile.InitializeProjectile(worldSpaceLaunchDirection.normalized * _launchSpeed, _damage, _sourcePawnID);
         }
     }
 }

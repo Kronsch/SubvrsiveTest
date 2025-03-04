@@ -1,3 +1,4 @@
+using SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns;
 using SubvrsiveTest.Runtime.Scripts.Source.Game.Projectiles;
 using UnityEngine;
 namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Weapons
@@ -15,13 +16,16 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Weapons
 
         private float _shotCooldownTimeLeft;
 
-        public void InitializeWeapon(WeaponData weaponData)
+        private IPawn _sourcePawn;
+
+        public void InitializeWeapon(WeaponData weaponData, IPawn sourcePawn)
         {
             _attackSpeed = weaponData._attackSpeed;
             _damage = weaponData._damage;
             _range = weaponData._range;
             _bulletSpeed = weaponData._bulletSpeed;
             _projectileLauncher.InitializeProjectileLauncher(_damage, _bulletSpeed);
+            _projectileLauncher.SetSourcePawn(sourcePawn);
         }
 
         private void Update()
@@ -35,6 +39,10 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Weapons
             {
                 _shotCooldownTimeLeft -= Time.deltaTime;
             }
+        }
+        public void InitializeWeapon(WeaponData weaponData)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
