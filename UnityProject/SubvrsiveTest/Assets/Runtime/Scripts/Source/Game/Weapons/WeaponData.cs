@@ -9,6 +9,6 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Weapons
         // Bullet Properties
         public int _damage = 1;
         public float _range = 5.0f;
-        public float _bulletVelocity = 1.0f;
+        public float _bulletSpeed = 1.0f;
     }
 }

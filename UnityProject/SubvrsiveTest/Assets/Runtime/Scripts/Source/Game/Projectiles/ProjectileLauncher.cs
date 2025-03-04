@@ -5,15 +5,28 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Projectiles
     {
         [SerializeField] private Projectile _projectilePrefab;
         [SerializeField] private Transform _gunpoint;
-        [SerializeField] private float _launchSpeed;
         [SerializeField] private Vector3 _launchDirection;
+
+        [SerializeField] private float _launchSpeed;
         [SerializeField] private int _damage;
+
+        public void InitializeProjectileLauncher(int damage, float launchSpeed)
+        {
+            _damage = damage;
+            _launchSpeed = launchSpeed;
+        }
+
+        public void Fire()
+        {
+            LaunchProjectile();
+        }
 
         [ContextMenu("Launch Projectile")]
         private void LaunchProjectile()
         {
             var newProjectile = Instantiate(_projectilePrefab, _gunpoint.position, Quaternion.identity);
-            newProjectile.InitializeProjectile(_launchDirection.normalized * _launchSpeed, _damage);
+            var worldSpaceLaunchDirection = _gunpoint.TransformDirection(_launchDirection);
+            newProjectile.InitializeProjectile(worldSpaceLaunchDirection.normalized * _launchSpeed, _damage);
         }
     }
 }
