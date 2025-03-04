@@ -1,9 +1,8 @@
-using System;
+using SubvrsiveTest.Runtime.Scripts.Source.Base.Logging;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.ObservableValue;
 using SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns;
 using SubvrsiveTest.Runtime.Scripts.Source.Game.Weapons;
 using UnityEngine;
-using UnityEngine.AI;
 namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
 {
     public class Combatant : BasePawn
@@ -29,12 +28,14 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
             }
         }
         
-        public override void TakeDamage(int damage)
+        public override void ApplyDamage(int damage)
         {
             Hp.Value -= damage;
-
+            this.Log($"Applying {damage} damage to pawn.");
+            
             if(Hp.Value <= 0)
             {
+                this.Log($"Pawns hp has reached zero. Handling death.");
                 HandleDeath();
             }
         }

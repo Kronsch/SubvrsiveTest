@@ -1,8 +1,9 @@
+using SubvrsiveTest.Runtime.Scripts.Source.Base.Logging;
 using UnityEngine;
 using UnityEngine.AI;
 namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
 {
-    public abstract class BasePawn : MonoBehaviour, IPawn
+    public abstract class BasePawn : MonoBehaviour, IPawn, ILoggable
     {
         [SerializeField] protected NavMeshAgent _navMeshAgent;
 
@@ -11,6 +12,8 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
 
         protected IPawn CurrentTarget;
 
+        public bool DebugLogsEnabled { get; set; } = true;
+        
         public virtual void InitializePawn(PawnData pawnData)
         {
             _moveSpeed = pawnData._moveSpeed;
@@ -24,8 +27,9 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
             _navMeshAgent.angularSpeed = _turnSpeed;
         }
 
-        public abstract void TakeDamage(int damage);
+        public abstract void ApplyDamage(int damage);
         public abstract void SetTarget(IPawn pawn);
         public abstract void MoveToPosition(Vector3 worldPosition);
+        
     }
 }
