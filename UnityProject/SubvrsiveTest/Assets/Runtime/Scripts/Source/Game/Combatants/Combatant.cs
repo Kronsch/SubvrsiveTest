@@ -11,11 +11,11 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
         
         public void InitializeCombatant(CombatantData combatantData)
         {
-            Hp.Value = combatantData.MaxHp;
-            MaxHp.Value = combatantData.MaxHp;
-            MoveSpeed = combatantData.MoveSpeed;
-            TurnSpeed = combatantData.TurnSpeed;
-            _weapon.InitializeWeapon(combatantData.WeaponData);
+            Hp.Value = combatantData._maxHp;
+            MaxHp.Value = combatantData._maxHp;
+            MoveSpeed = combatantData._moveSpeed;
+            TurnSpeed = combatantData._turnSpeed;
+            _weapon.InitializeWeapon(combatantData._weaponData);
         }
         
         public override void TakeDamage(int damage)

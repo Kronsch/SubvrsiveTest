@@ -9,9 +9,9 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Weapons
         
         public void InitializeWeapon(WeaponData weaponData)
         {
-            _damage = weaponData.Damage;
-            _range = weaponData.Range;
-            _bulletVelocity = weaponData.BulletVelocity;
+            _damage = weaponData._damage;
+            _range = weaponData._range;
+            _bulletVelocity = weaponData._bulletVelocity;
         }
     }
 }
