@@ -1,4 +1,3 @@
-using System;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.Logging;
 using UnityEngine;
 using UnityEngine.AI;

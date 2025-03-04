@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns;
 using UnityEngine;
 namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Projectiles
