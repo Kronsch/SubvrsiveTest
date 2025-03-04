@@ -7,18 +7,13 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
     {
         [SerializeField] protected NavMeshAgent _navMeshAgent;
 
-        private int _id;
         private float _moveSpeed;
         private float _turnSpeed;
 
         protected IPawn CurrentTarget;
         
-        public int PawnID
-        {
-            get => _id;
-            set => _id = value;
-        }
-        
+        public int PawnID { get; set; }
+
         public bool DebugLogsEnabled { get; set; } = true;
 
         public virtual void InitializePawn(PawnData pawnData)
