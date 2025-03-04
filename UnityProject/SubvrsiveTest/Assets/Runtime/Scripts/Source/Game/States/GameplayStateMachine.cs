@@ -9,8 +9,6 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.States
         [SerializeField] private ActiveGameplayState _activeState;
         [SerializeField] private CompleteGameplayState _completeState;
         
-        public GameplayStateMachine(bool debugLogsEnabled) : base(debugLogsEnabled) { }
-
         protected override GameplayStates DefaultStateID { get; } = GameplayStates.Start;
         protected override void InitializeStates()
         {

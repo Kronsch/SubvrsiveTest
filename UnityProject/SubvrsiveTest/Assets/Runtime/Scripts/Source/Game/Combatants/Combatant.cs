@@ -31,8 +31,6 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
         public override void ApplyDamage(int damage)
         {
             Hp.Value -= damage;
-            this.Log($"Applying {damage} damage to pawn.");
-            
             if(Hp.Value <= 0)
             {
                 this.Log($"Pawns hp has reached zero. Handling death.");
@@ -52,6 +50,7 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
 
         private void HandleDeath()
         {
+            Destroy(gameObject);
             // Perform death animation.
         }
     }

@@ -1,21 +1,19 @@
-using System;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.Logging;
-using SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants;
+using SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns;
 using UnityEngine;
-using Random = UnityEngine.Random;
-
-namespace SubvrsiveTest.Runtime.Scripts.Source.Game.TestComponents
+namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
 {
-    public class CombatantSpawnTester : MonoBehaviour, ILoggable
+    public class CombatantSpawner : MonoBehaviour, ILoggable
     {
+        [SerializeField] private PawnManager _pawnManager;
+        
         [SerializeField] private CombatantData _combatantData;
-        [SerializeField] private int _spawnCount = 10;
         [SerializeField] private Bounds _spawnBounds;
 
         private const float RAYCAST_ORIGIN_HEIGHT = 10f;
         
         public bool DebugLogsEnabled { get; set; } = true;
-
+        
         #region Gizmos
 
         private void OnDrawGizmosSelected()
@@ -24,13 +22,8 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.TestComponents
         }
 
         #endregion
-        
-        private void Start()
-        {
-            SpawnCombatants(_spawnCount);
-        }
 
-        private void SpawnCombatants(int spawnCount)
+        public void SpawnCombatants(int spawnCount)
         {
             int combatantsLeft = spawnCount;
             while(combatantsLeft > 0)
@@ -43,7 +36,7 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.TestComponents
         private void SpawnCombatant(CombatantData combatantData, Vector3 position, int pawnID)
         {
             var combatant = Instantiate(combatantData._prefab, position, Quaternion.identity);
-            combatant.PawnID = Guid.NewGuid();
+            _pawnManager.RegisterPawn(combatant);
             combatant.InitializePawn(combatantData);
         }
 

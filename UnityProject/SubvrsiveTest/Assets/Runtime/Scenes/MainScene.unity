@@ -486,6 +486,68 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &607344728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 607344731}
+  - component: {fileID: 607344730}
+  - component: {fileID: 607344729}
+  m_Layer: 0
+  m_Name: PawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &607344729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607344728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b36be0237f09bb4d8253c7c3597f802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pawnManager: {fileID: 607344730}
+  _combatantData: {fileID: 11400000, guid: fbd93029b959feb4ab8bc507e72c61ef, type: 2}
+  _spawnBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 10, y: 2, z: 10}
+--- !u!114 &607344730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607344728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f17c7796f8c80ff4cbbfaf792202fc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &607344731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607344728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &802871075
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +592,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f35d022b8fb0f40b3e3913d7640f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _combatantSpawner: {fileID: 607344729}
+  _pawnManager: {fileID: 607344730}
+  _combatantCount: 10
 --- !u!114 &802871078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c105be8feb599ec498ffa038b4defbf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugLogsEnabled: 1
   _startState: {fileID: 802871078}
   _activeState: {fileID: 802871077}
   _completeState: {fileID: 802871076}
@@ -720,69 +786,6 @@ Transform:
   - {fileID: 1662898996}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1468882014
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1468882016}
-  - component: {fileID: 1468882015}
-  - component: {fileID: 1468882017}
-  m_Layer: 0
-  m_Name: TestComponents
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1468882015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468882014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb3da05642e8c214896c4a6847ab8076, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectedPawn: {fileID: 0}
---- !u!4 &1468882016
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468882014}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1468882017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468882014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bf2806f1d7ec6248b22862c8ba571cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _combatantData: {fileID: 11400000, guid: fbd93029b959feb4ab8bc507e72c61ef, type: 2}
-  _spawnCount: 1
-  _spawnBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 4.59, y: 1.53, z: 5.64}
 --- !u!1 &1662898995
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,7 +822,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 802871080}
+  - {fileID: 607344731}
   - {fileID: 330585546}
   - {fileID: 1065262724}
-  - {fileID: 1468882016}
-  - {fileID: 802871080}

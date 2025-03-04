@@ -9,6 +9,8 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Base.FSM
 {
     public abstract class BaseStateMachine<T> : MonoBehaviour, IStateMachine, ILoggable, IUniTaskable where T: Enum
     {
+        [SerializeField] private bool _debugLogsEnabled;
+        
         protected IList<IState<T>> States;
         protected IState<T> ActiveState;
         
@@ -16,14 +18,14 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Base.FSM
 
         public bool DebugLogsEnabled { get; set; }
 
-
-        public BaseStateMachine(bool debugLogsEnabled)
+        private void Start()
         {
-            DebugLogsEnabled = debugLogsEnabled;
+            DebugLogsEnabled = _debugLogsEnabled;
+            Initialize();
         }
-        
+
         protected abstract void InitializeStates();
-        public virtual void Initialize()
+        protected virtual void Initialize()
         {
             InitializeStates();
             SetState(DefaultStateID);
