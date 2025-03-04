@@ -3,7 +3,7 @@ using SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace SubvrsiveTest
+namespace SubvrsiveTest.Runtime.Scripts.Source.Game.TestComponents
 {
     public class CombatantSpawnTester : MonoBehaviour, ILoggable
     {
