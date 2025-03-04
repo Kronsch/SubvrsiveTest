@@ -15,6 +15,11 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.TestComponents
 
         private void Update()
         {
+            if(_targetCombatant == null)
+            {
+                return;
+            }
+            
             if(Input.GetMouseButtonDown(0))
             {
                 var ray = _camera.ScreenPointToRay(Input.mousePosition);

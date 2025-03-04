@@ -17,6 +17,10 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
         public override void InitializePawn(PawnData pawnData)
         {
             base.InitializePawn(pawnData);
+
+            Hp = new ObservableValue<int>();
+            MaxHp = new ObservableValue<int>();
+
             if(pawnData is CombatantData combatantData)
             {
                 Hp.Value = combatantData._maxHp;
