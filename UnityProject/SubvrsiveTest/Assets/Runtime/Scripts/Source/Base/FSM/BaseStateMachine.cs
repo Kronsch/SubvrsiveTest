@@ -4,9 +4,10 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.Logging;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.UniTaskExtensions;
+using UnityEngine;
 namespace SubvrsiveTest.Runtime.Scripts.Source.Base.FSM
 {
-    public abstract class BaseStateMachine<T> : IStateMachine, ILoggable, IUniTaskable where T: Enum
+    public abstract class BaseStateMachine<T> : MonoBehaviour, IStateMachine, ILoggable, IUniTaskable where T: Enum
     {
         protected IList<IState<T>> States;
         protected IState<T> ActiveState;
@@ -28,7 +29,7 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Base.FSM
             SetState(DefaultStateID);
         }
         
-        protected async void SetState(T stateID)
+        public async void SetState(T stateID)
         {
             var state = States.FirstOrDefault(s => s.ID.Equals(stateID));
             if(state == null)
