@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63d9f42411ccd0428e55775580eff7c, type: 3}
   m_Name: HeavyWeaponData
   m_EditorClassIdentifier: 
+  _projectilePrefab: {fileID: 1003612621904177330, guid: ac303d4b33563614eaa146b3c870d2ff, type: 3}
   _attackSpeed: 1.5
   _damage: 10
   _range: 10

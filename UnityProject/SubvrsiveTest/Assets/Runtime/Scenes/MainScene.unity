@@ -806,7 +806,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pawnManager: {fileID: 607344730}
-  _combatantData: {fileID: 11400000, guid: fbd93029b959feb4ab8bc507e72c61ef, type: 2}
+  _combatantDatas:
+  - {fileID: 11400000, guid: fbd93029b959feb4ab8bc507e72c61ef, type: 2}
+  - {fileID: 11400000, guid: d5e87a3282f2af74daedde83879d6003, type: 2}
   _spawnBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 20, y: 2, z: 20}
