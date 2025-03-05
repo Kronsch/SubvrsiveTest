@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &950840565812084943
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1052307992054626660}
+  - component: {fileID: 77822573562660706}
+  m_Layer: 0
+  m_Name: MoveTowardTargetBehavior
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1052307992054626660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950840565812084943}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 398460390995934055}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &77822573562660706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950840565812084943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bcc1514590253e4ea5cd17b59ba734a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selfCombatant: {fileID: 2894444993007384522}
+  _moveTowardTargetDistance: 5
+  _moveCooldownDurationSecs: 1
 --- !u!1 &2256510709008438670
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +361,7 @@ GameObject:
   - component: {fileID: 4903244090327155244}
   - component: {fileID: 7886177952346023574}
   m_Layer: 2
-  m_Name: AutoTargetBehaviour
+  m_Name: AutoTargetBehavior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -348,10 +395,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selfPawn: {fileID: 2894444993007384522}
-  _detectionSphere: {fileID: 7886177952346023574}
-  _autoSearchEnabled: 0
+  _autoSearchEnabled: 1
   _searchMoveDistance: 10
-  _searchCooldownDurationSecs: 3
+  _searchCooldownDurationSecs: 1
 --- !u!135 &7886177952346023574
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -371,7 +417,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4139728535089071976
 GameObject:
@@ -471,6 +517,7 @@ Transform:
   - {fileID: 1207391785413913004}
   - {fileID: 7517402892376780939}
   - {fileID: 1748289206462591430}
+  - {fileID: 1052307992054626660}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2894444993007384522

@@ -1,4 +1,3 @@
-using System;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.Logging;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.ObservableValue;
 using SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns;
@@ -11,18 +10,21 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
         [SerializeField]
         private Weapon _weapon;
 
-        protected ObservableValue<int> Hp;
-        protected ObservableValue<int> MaxHp;
+        private float _range;
         
+        public ObservableValue<int> Hp;
+        public ObservableValue<int> MaxHp;
+
         public override void InitializePawn(PawnData pawnData)
         {
             base.InitializePawn(pawnData);
-
+            
             Hp = new ObservableValue<int>();
             MaxHp = new ObservableValue<int>();
 
             if(pawnData is CombatantData combatantData)
             {
+                _range = combatantData._weaponData._range;
                 Hp.Value = combatantData._maxHp;
                 MaxHp.Value = combatantData._maxHp;
                 _weapon.InitializeWeapon(combatantData._weaponData, this);
@@ -34,18 +36,21 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
             Hp.Value -= damage;
             if(Hp.Value <= 0)
             {
-                this.Log($"Pawns hp has reached zero. Handling death.");
+                this.Log($"Pawn {PawnID.GetHashCode()} hp has reached zero. Handling death.");
                 HandleDeath();
             }
         }
 
-        
+        public bool TargetIsInRange()
+        {
+            var positionDiff = CurrentTarget.WorldPosition - WorldPosition;
+            return positionDiff.sqrMagnitude <= _range * _range;
+        }
 
         private void HandleDeath()
         {
             Destroy(gameObject);
             // Perform death animation.
         }
-        
     }
 }

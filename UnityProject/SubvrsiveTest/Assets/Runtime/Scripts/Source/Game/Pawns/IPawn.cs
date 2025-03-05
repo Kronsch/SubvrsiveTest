@@ -7,7 +7,8 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
         Guid PawnID { get; set; }
         IPawn CurrentTarget { get; set; }
         Vector3 WorldPosition { get; }
-        event Action<Guid> PawnDestroyed; 
+        event Action TargetPawnDestroyed;
+        event Action<Guid> PawnDestroyed;
         void InitializePawn(PawnData pawnData);
         void ApplyDamage(int damage);
         void SetTarget(IPawn pawn);

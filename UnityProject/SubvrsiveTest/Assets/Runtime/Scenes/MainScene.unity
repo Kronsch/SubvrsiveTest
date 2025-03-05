@@ -148,7 +148,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 5, y: 1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1662898996}
@@ -314,13 +314,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 10, z: -10}
+  m_LocalRotation: {x: 0.5780712, y: 0, z: 0, w: 0.81598634}
+  m_LocalPosition: {x: 0.59, y: 37.71, z: -18.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 70.63, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,7 +520,7 @@ MonoBehaviour:
   _combatantData: {fileID: 11400000, guid: fbd93029b959feb4ab8bc507e72c61ef, type: 2}
   _spawnBounds:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 10, y: 2, z: 10}
+    m_Extent: {x: 20, y: 2, z: 20}
 --- !u!114 &607344730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,7 +594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _combatantSpawner: {fileID: 607344729}
   _pawnManager: {fileID: 607344730}
-  _combatantCount: 2
+  _combatantCount: 10
 --- !u!114 &802871078
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,8 +19,8 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
         public IPawn CurrentTarget { get; set; }
         public Guid PawnID { get; set; }
         public Vector3 WorldPosition => _transform.position;
-        public event Action<Guid> PawnDestroyed;
         public event Action TargetPawnDestroyed;
+        public event Action<Guid> PawnDestroyed;
 
         public bool DebugLogsEnabled { get; set; } = true;
 
@@ -61,9 +61,18 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
         
         public virtual void SetTarget(IPawn pawn)
         {
+            if(CurrentTarget != default)
+            {
+                CurrentTarget.PawnDestroyed -= OnTargetPawnDestroyed;
+            }
+            
             CurrentTarget = pawn;
-            CurrentTarget.PawnDestroyed += OnTargetPawnDestroyed;
-            SetLookAtTargetRotation(CurrentTarget.WorldPosition);
+
+            if(CurrentTarget != default)
+            {
+                this.Log($"Setting {PawnID.GetHashCode()} target to {CurrentTarget.PawnID.GetHashCode()}");
+                CurrentTarget.PawnDestroyed += OnTargetPawnDestroyed;
+            }
         }
 
         private void UpdateRotation()
@@ -73,6 +82,7 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
                 return;
             }
             
+            SetLookAtTargetRotation(CurrentTarget.WorldPosition);
             _currentRotation = _transform.rotation;
             if(Quaternion.Angle(_currentRotation, _targetRotation) > Single.Epsilon)
             {
@@ -90,6 +100,7 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
         private void OnTargetPawnDestroyed(Guid pawnID)
         {
             TargetPawnDestroyed?.Invoke();
+            CurrentTarget = default;
         }
 
         protected virtual void OnDestroy()

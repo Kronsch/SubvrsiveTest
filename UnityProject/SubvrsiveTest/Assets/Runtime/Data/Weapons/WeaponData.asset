@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackSpeed: 0.2
   _damage: 1
-  _range: 5
+  _range: 10
   _bulletSpeed: 8

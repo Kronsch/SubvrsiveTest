@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.Logging;
+using SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants;
 using UnityEngine;
 using Random = UnityEngine.Random;
 namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns.Behaviors
@@ -9,7 +10,6 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns.Behaviors
     public class AutoTargetPawns : MonoBehaviour, ILoggable
     {
         [SerializeField] private BasePawn _selfPawn;
-        [SerializeField] private SphereCollider _detectionSphere;
         [SerializeField] private bool _autoSearchEnabled;
         [SerializeField] private float _searchMoveDistance = 5.0f;
         [SerializeField] private float _searchCooldownDurationSecs = 3.0f;
@@ -67,19 +67,14 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns.Behaviors
         {
             var randUnitCircle = Random.insideUnitCircle;
             var offset = randUnitCircle.normalized * _searchMoveDistance;
-            _selfPawn.Move(offset);
-        }
-
-        private void OnTargetPawnDestroyed()
-        {
-            PerformNextTargetSearch();
+            _selfPawn.Move(new Vector3(offset.x, 0f, offset.y));
         }
         
         private void OnTriggerEnter(Collider other)
         {
             if(other.gameObject.TryGetComponent<PawnObjectReference>(out var pawnRef))
             {
-                if(pawnRef.Reference.PawnID == _selfPawn.PawnID)
+                if(!PawnIsValidTarget(pawnRef.Reference))
                 {
                     return;
                 }
@@ -114,12 +109,48 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns.Behaviors
                 return;
             }
 
+            this.Log($"TryForgetPawnInRange: Self Pawn ID {_selfPawn.PawnID.GetHashCode()} -- Forgetting pawn {pawnID.GetHashCode()}");
+            var pawn = _pawnsInRange[pawnID];
+            pawn.PawnDestroyed -= OnInRangePawnDestroyed;
             _pawnsInRange.Remove(pawnID);
         }
+
+        private bool PawnIsValidTarget(IPawn pawn)
+        {
+            // Ignore pawns that are dead.
+            if(pawn is Combatant combatant && combatant.Hp.Value <= 0)
+            {
+                return false;
+            }
+            
+            // Ignore the pawn that this behavior belongs to.
+            return pawn.PawnID != _selfPawn.PawnID;
+        }
         
+        private void OnTargetPawnDestroyed()
+        {
+            if(_selfPawn.CurrentTarget != default &&
+               _pawnsInRange.ContainsKey(_selfPawn.CurrentTarget.PawnID))
+            {
+                TryForgetPawnInRange(_selfPawn.CurrentTarget.PawnID);
+                return;
+            }
+            
+            PerformNextTargetSearch();
+        }
+
         private void OnInRangePawnDestroyed(Guid pawnID)
         {
             TryForgetPawnInRange(pawnID);
+        }
+
+        private void OnDestroy()
+        {
+            _selfPawn.TargetPawnDestroyed -= OnTargetPawnDestroyed;
+            foreach(var entry in _pawnsInRange)
+            {
+                entry.Value.PawnDestroyed -= OnInRangePawnDestroyed;
+            }
         }
     }
 }

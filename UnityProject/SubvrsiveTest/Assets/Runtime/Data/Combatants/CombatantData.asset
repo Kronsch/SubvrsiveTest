@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2894444993007384522, guid: 0ee8f9386f5611b4f90e19f5a51a7bea, type: 3}
   _moveSpeed: 20
-  _turnSpeed: 180
+  _turnSpeed: 360
   _maxHp: 10
   _weaponData: {fileID: 11400000, guid: 3e78ed9dee7d09a42a2a7d7a236c937f, type: 2}
