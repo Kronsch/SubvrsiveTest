@@ -1,16 +1,21 @@
 using SubvrsiveTest.Runtime.Scripts.Source.Base.FSM;
+using SubvrsiveTest.Runtime.Scripts.Source.UI.Screens;
+using UnityEngine;
 namespace SubvrsiveTest.Runtime.Scripts.Source.Game.States
 {
     public class StartGameplayState : BaseState<GameplayStates>
     {
-        public override GameplayStates ID { get; } = GameplayStates.Start;
+        [SerializeField] private StartGameScreen _startGameScreen;
+        [SerializeField] private ActiveGameplayState _activeGameplayState;
         
+        public override GameplayStates ID => GameplayStates.Start;
+
         public override void Enter()
         {
-            // TODO: Add UI start screen with start button. For now just automatically transition into the active state.
-            StateMachine.SetState(GameplayStates.Active);
+            _startGameScreen.Visible = true;
+            _startGameScreen.StartGameButtonPressed += OnStartGameButtonPressed;
         }
-        
+
         public override void Update()
         {
             
@@ -18,7 +23,14 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.States
         
         public override void Exit()
         {
-            
+            _startGameScreen.Visible = false;
+            _startGameScreen.StartGameButtonPressed -= OnStartGameButtonPressed;
+        }
+        
+        private void OnStartGameButtonPressed(int combatantCount)
+        {
+            _activeGameplayState.SetCombatantCount(combatantCount);
+            StateMachine.SetState(GameplayStates.Active);
         }
     }
 }

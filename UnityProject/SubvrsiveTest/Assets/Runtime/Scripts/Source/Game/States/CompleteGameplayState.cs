@@ -3,8 +3,8 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.States
 {
     public class CompleteGameplayState : BaseState<GameplayStates>
     {
-        public override GameplayStates ID { get; } = GameplayStates.Complete;
-        
+        public override GameplayStates ID => GameplayStates.Complete;
+
         public override void Enter()
         {
             

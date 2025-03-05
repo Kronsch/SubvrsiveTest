@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-namespace SubvrsiveTest.Runtime.Scripts.Source.UI
+namespace SubvrsiveTest.Runtime.Scripts.Source.UI.Screens
 {
-    public class StartGameScreen : MonoBehaviour
+    public class StartGameScreen : BaseScreen
     {
         [SerializeField] private Slider _spawnCountSlider;
         [SerializeField] private Button _startGameButton;

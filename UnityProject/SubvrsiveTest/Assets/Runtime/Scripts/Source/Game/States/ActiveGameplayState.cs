@@ -10,8 +10,8 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.States
         [SerializeField] private PawnManager _pawnManager;
         [SerializeField] private int _combatantCount = 10;
         
-        public override GameplayStates ID { get; } = GameplayStates.Active;
-        
+        public override GameplayStates ID => GameplayStates.Active;
+
         public override void Enter()
         {
             _combatantSpawner.SpawnCombatants(_combatantCount);
@@ -26,6 +26,11 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.States
         public override void Exit()
         {
             _pawnManager.PawnDestroyed -= OnPawnDestroyed;
+        }
+
+        public void SetCombatantCount(int combatantCount)
+        {
+            _combatantCount = combatantCount;
         }
         
         private void OnPawnDestroyed()
