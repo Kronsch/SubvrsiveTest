@@ -109,7 +109,6 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns.Behaviors
                 return;
             }
 
-            this.Log($"TryForgetPawnInRange: Self Pawn ID {_selfPawn.PawnID.GetHashCode()} -- Forgetting pawn {pawnID.GetHashCode()}");
             var pawn = _pawnsInRange[pawnID];
             pawn.PawnDestroyed -= OnInRangePawnDestroyed;
             _pawnsInRange.Remove(pawnID);

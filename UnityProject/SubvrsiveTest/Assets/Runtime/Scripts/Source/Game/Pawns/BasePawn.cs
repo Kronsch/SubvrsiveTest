@@ -70,7 +70,6 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
 
             if(CurrentTarget != default)
             {
-                this.Log($"Setting {PawnID.GetHashCode()} target to {CurrentTarget.PawnID.GetHashCode()}");
                 CurrentTarget.PawnDestroyed += OnTargetPawnDestroyed;
             }
         }

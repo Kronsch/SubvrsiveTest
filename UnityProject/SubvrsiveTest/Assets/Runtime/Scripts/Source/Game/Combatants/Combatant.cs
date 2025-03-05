@@ -36,7 +36,7 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
             Hp.Value -= damage;
             if(Hp.Value <= 0)
             {
-                this.Log($"Pawn {PawnID.GetHashCode()} hp has reached zero. Handling death.");
+                this.Log($"Pawn {PawnID} hp has reached zero. Handling death.");
                 HandleDeath();
             }
         }
