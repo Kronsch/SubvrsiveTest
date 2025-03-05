@@ -48,7 +48,7 @@ Weapons are attached to combatants. They utilize a MonoBehaviour called `Project
 ### Behaviors
 Combatant AI is handled using various MonoBehaviours that can be attached to their prefabs. There are only two such behaviors in this project.
  - CombatantMoveTowardTarget: Checks if a combatant is within firing range. If it is not, it will move toward its target.
- - AutoTargetPawns: Checks potential targets in-range and sets them as the user's target.
+ - AutoTargetPawns: Checks potential targets in-range and sets them as the user's target. If there is no target in range, the pawn will randomly wander around until it comes within range of another.
 
 ### Assets
 Uses primitive 3D assets and a simple checkerboard shader made in shadergraph.
@@ -58,6 +58,8 @@ Uses primitive 3D assets and a simple checkerboard shader made in shadergraph.
 The Unreal project uses the First-Person Shooter template. Upon playing you'll see a keypad in front of you, and a security camera above that. The camera will emit green light when it cannot detect you, a yellow light when you are near detection, and a red light when you are clearly detected. Entering the correct code on the keypad will disable the camera, causing it to permenantly glow green.
 
 *There is no in-game reset once the camera has been disabled. The playfield must be restarted to enable to security camera again.*
+
+*There is no application exit functionality in the Unreal build. Alt+F4 to quit.*
 
 ### Blueprints
 All of the logic in this demo takes place in three custom blueprints:
@@ -77,7 +79,7 @@ This blueprint simply passes events to `BP_NumPad` when clicked. The event is ca
  - Button Number: The integer that will be sent via event when the button is pressed (Also determines the number that appears on the button.)
 
 ### BP_NumPad
-This blueprint has quite a bit of functionality crammed into it. It receives events from it's child BP_NumPadButtons when clicked, and builds a string using the input. If the code is correct, it will fire an event to `BP_SecurityCamera` informing it to disable the security camera. Getting the code correct will also lock the Num Pad from receiving more input.
+This blueprint has quite a bit of functionality crammed into it. It receives events from it's child `BP_NumPadButtons` when clicked, and builds a string using the input. If the input is correct, it will fire an event to `BP_SecurityCamera` informing it to disable the security camera. Getting the passcode correct will also lock the Num Pad from receiving more input.
 
 Exposed parameters:
  - Target Input String: The desired code. When entered the num pad will show green and deactivate the camera.
