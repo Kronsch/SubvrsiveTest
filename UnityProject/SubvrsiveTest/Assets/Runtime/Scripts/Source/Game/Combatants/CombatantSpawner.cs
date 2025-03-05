@@ -7,7 +7,7 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
     {
         [SerializeField] private PawnManager _pawnManager;
         
-        [SerializeField] private CombatantData _combatantData;
+        [SerializeField] private CombatantData[] _combatantDatas;
         [SerializeField] private Bounds _spawnBounds;
 
         private const float RAYCAST_ORIGIN_HEIGHT = 10f;
@@ -28,13 +28,14 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
             int combatantsLeft = spawnCount;
             while(combatantsLeft > 0)
             {
-                SpawnCombatant(_combatantData, GetRandomSpawnPosition(), combatantsLeft);
+                SpawnCombatant(GetRandomSpawnPosition());
                 combatantsLeft -= 1;
             }
         }
 
-        private void SpawnCombatant(CombatantData combatantData, Vector3 position, int pawnID)
+        private void SpawnCombatant(Vector3 position)
         {
+            var combatantData = _combatantDatas[Random.Range(0, _combatantDatas.Length)];
             var combatant = Instantiate(combatantData._prefab, position, Quaternion.identity);
             _pawnManager.RegisterPawn(combatant);
             combatant.InitializePawn(combatantData);

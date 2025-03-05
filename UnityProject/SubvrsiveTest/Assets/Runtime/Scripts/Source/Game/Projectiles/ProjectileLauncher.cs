@@ -14,10 +14,11 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Projectiles
 
         private Guid _sourcePawnID;
 
-        public void InitializeProjectileLauncher(int damage, float launchSpeed)
+        public void InitializeProjectileLauncher(int damage, float launchSpeed, Projectile prefab)
         {
             _damage = damage;
             _launchSpeed = launchSpeed;
+            _projectilePrefab = prefab;
         }
 
         public void SetSourcePawn(IPawn pawn)
