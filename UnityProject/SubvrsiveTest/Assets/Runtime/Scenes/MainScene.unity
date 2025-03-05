@@ -900,6 +900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startGameScreen: {fileID: 201611292}
   _activeGameplayState: {fileID: 802871077}
+  _pawnManager: {fileID: 607344730}
 --- !u!114 &802871079
 MonoBehaviour:
   m_ObjectHideFlags: 0

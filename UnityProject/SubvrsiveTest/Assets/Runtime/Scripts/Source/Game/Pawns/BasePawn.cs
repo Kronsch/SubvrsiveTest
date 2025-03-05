@@ -59,6 +59,11 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
             _navMeshAgent.SetDestination(_transform.position + offset);
         }
         
+        public void ForceDestroy()
+        {
+            Destroy(gameObject);
+        }
+
         public virtual void SetTarget(IPawn pawn)
         {
             if(CurrentTarget != default)

@@ -1,4 +1,5 @@
 using SubvrsiveTest.Runtime.Scripts.Source.Base.FSM;
+using SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns;
 using SubvrsiveTest.Runtime.Scripts.Source.UI.Screens;
 using UnityEngine;
 namespace SubvrsiveTest.Runtime.Scripts.Source.Game.States
@@ -7,11 +8,13 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.States
     {
         [SerializeField] private StartGameScreen _startGameScreen;
         [SerializeField] private ActiveGameplayState _activeGameplayState;
+        [SerializeField] private PawnManager _pawnManager;
         
         public override GameplayStates ID => GameplayStates.Start;
 
         public override void Enter()
         {
+            _pawnManager.DestroyAllPawns();
             _startGameScreen.Visible = true;
             _startGameScreen.StartGameButtonPressed += OnStartGameButtonPressed;
         }

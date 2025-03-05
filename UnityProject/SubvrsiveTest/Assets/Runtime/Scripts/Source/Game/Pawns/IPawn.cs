@@ -14,5 +14,6 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
         void SetTarget(IPawn pawn);
         void MoveToPosition(Vector3 worldPosition);
         void Move(Vector3 offset);
+        void ForceDestroy();
     }
 }

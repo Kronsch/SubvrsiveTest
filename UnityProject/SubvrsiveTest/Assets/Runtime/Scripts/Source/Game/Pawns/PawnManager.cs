@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.Logging;
 using UnityEngine;
+using UnityEngine.EventSystems;
 namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
 {
     public class PawnManager : MonoBehaviour, ILoggable
@@ -34,6 +35,16 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
         public IList<IPawn> GetAllPawns()
         {
             return _pawnDict.Values.ToList();
+        }
+
+        public void DestroyAllPawns()
+        {
+            var allPawns = _pawnDict.Values.ToList();
+            for(int i = allPawns.Count - 1; i >= 0; i--)
+            {
+                ForgetPawn(allPawns[i].PawnID);
+                allPawns[i].ForceDestroy();
+            }
         }
 
         private void ForgetPawn(Guid pawnID)
