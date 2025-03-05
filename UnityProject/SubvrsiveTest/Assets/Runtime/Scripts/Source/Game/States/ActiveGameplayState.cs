@@ -9,6 +9,7 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.States
         [SerializeField] private CombatantSpawner _combatantSpawner;
         [SerializeField] private PawnManager _pawnManager;
         [SerializeField] private int _combatantCount = 10;
+        [SerializeField] private CompleteGameplayState _completeGameplayState;
         
         public override GameplayStates ID => GameplayStates.Active;
 
@@ -42,6 +43,8 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.States
         {
             if(_pawnManager.PawnCount == 1)
             {
+                var allPawns = _pawnManager.GetAllPawns();
+                _completeGameplayState.SetWinningPawn(allPawns[0]);
                 StateMachine.SetState(GameplayStates.Complete);
             }
         }

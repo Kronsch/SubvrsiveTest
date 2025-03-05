@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.Logging;
 using UnityEngine;
 namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
@@ -30,6 +31,10 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
             return default;
         }
 
+        public IList<IPawn> GetAllPawns()
+        {
+            return _pawnDict.Values.ToList();
+        }
 
         private void ForgetPawn(Guid pawnID)
         {
