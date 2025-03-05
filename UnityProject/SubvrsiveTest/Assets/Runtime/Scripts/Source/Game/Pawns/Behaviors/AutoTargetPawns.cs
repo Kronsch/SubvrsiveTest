@@ -1,0 +1,125 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using SubvrsiveTest.Runtime.Scripts.Source.Base.Logging;
+using UnityEngine;
+using Random = UnityEngine.Random;
+namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns.Behaviors
+{
+    public class AutoTargetPawns : MonoBehaviour, ILoggable
+    {
+        [SerializeField] private BasePawn _selfPawn;
+        [SerializeField] private SphereCollider _detectionSphere;
+        [SerializeField] private bool _autoSearchEnabled;
+        [SerializeField] private float _searchMoveDistance = 5.0f;
+        [SerializeField] private float _searchCooldownDurationSecs = 3.0f;
+
+        // Key: Pawn ID -> Value: Pawn Instance)
+        private IDictionary<Guid, IPawn> _pawnsInRange = new Dictionary<Guid, IPawn>();
+
+        private float _searchCooldownTimeLeft;
+        
+        public bool DebugLogsEnabled { get; set; } = true;
+
+        private void Start()
+        {
+            _selfPawn.TargetPawnDestroyed += OnTargetPawnDestroyed;
+            PerformNextTargetSearch();
+        }
+
+        private void Update()
+        {
+            if(_selfPawn.CurrentTarget == default)
+            {
+                if(_searchCooldownTimeLeft <= 0.0f)
+                {
+                    PerformNextTargetSearch();
+                }
+                else
+                {
+                    _searchCooldownTimeLeft -= Time.deltaTime;
+                }
+            }
+        }
+
+        private void SetTarget(IPawn targetPawn)
+        {
+            _selfPawn.SetTarget(targetPawn);
+        }
+
+        private void PerformNextTargetSearch()
+        {
+            if(_pawnsInRange.Count > 0)
+            {
+                var randomPawnInRange = _pawnsInRange.Values.ToArray()[Random.Range(0, _pawnsInRange.Count)];
+                SetTarget(randomPawnInRange);
+                return;
+            }
+            
+            if(_autoSearchEnabled)
+            {
+                MoveInRandomDirection();
+                _searchCooldownTimeLeft = _searchCooldownDurationSecs;
+            }
+        }
+
+        private void MoveInRandomDirection()
+        {
+            var randUnitCircle = Random.insideUnitCircle;
+            var offset = randUnitCircle.normalized * _searchMoveDistance;
+            _selfPawn.Move(offset);
+        }
+
+        private void OnTargetPawnDestroyed()
+        {
+            PerformNextTargetSearch();
+        }
+        
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.TryGetComponent<PawnObjectReference>(out var pawnRef))
+            {
+                if(pawnRef.Reference.PawnID == _selfPawn.PawnID)
+                {
+                    return;
+                }
+                
+                TryRegisterPawnInRange(pawnRef.Reference);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if(other.gameObject.TryGetComponent<PawnObjectReference>(out var pawnRef))
+            {
+                TryForgetPawnInRange(pawnRef.Reference.PawnID);
+            }
+        }
+
+        private void TryRegisterPawnInRange(IPawn pawn)
+        {
+            if(_pawnsInRange.ContainsKey(pawn.PawnID))
+            {
+                return;
+            }
+            
+            _pawnsInRange.Add(pawn.PawnID, pawn);
+            pawn.PawnDestroyed += OnInRangePawnDestroyed;
+        }
+
+        private void TryForgetPawnInRange(Guid pawnID)
+        {
+            if(!_pawnsInRange.ContainsKey(pawnID))
+            {
+                return;
+            }
+
+            _pawnsInRange.Remove(pawnID);
+        }
+        
+        private void OnInRangePawnDestroyed(Guid pawnID)
+        {
+            TryForgetPawnInRange(pawnID);
+        }
+    }
+}

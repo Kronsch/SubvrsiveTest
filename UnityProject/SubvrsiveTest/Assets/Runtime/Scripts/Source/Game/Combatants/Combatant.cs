@@ -1,3 +1,4 @@
+using System;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.Logging;
 using SubvrsiveTest.Runtime.Scripts.Source.Base.ObservableValue;
 using SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns;
@@ -12,7 +13,7 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
 
         protected ObservableValue<int> Hp;
         protected ObservableValue<int> MaxHp;
-
+        
         public override void InitializePawn(PawnData pawnData)
         {
             base.InitializePawn(pawnData);
@@ -37,21 +38,14 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Combatants
                 HandleDeath();
             }
         }
+
         
-        public override void SetTarget(IPawn pawn)
-        {
-            CurrentTarget = pawn;
-        }
-        
-        public override void MoveToPosition(Vector3 worldPosition)
-        {
-            _navMeshAgent.SetDestination(worldPosition);
-        }
 
         private void HandleDeath()
         {
             Destroy(gameObject);
             // Perform death animation.
         }
+        
     }
 }

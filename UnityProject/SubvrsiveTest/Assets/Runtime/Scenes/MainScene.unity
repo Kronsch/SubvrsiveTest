@@ -594,7 +594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _combatantSpawner: {fileID: 607344729}
   _pawnManager: {fileID: 607344730}
-  _combatantCount: 10
+  _combatantCount: 2
 --- !u!114 &802871078
 MonoBehaviour:
   m_ObjectHideFlags: 0

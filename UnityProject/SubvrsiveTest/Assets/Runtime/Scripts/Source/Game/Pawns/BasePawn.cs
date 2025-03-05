@@ -8,15 +8,31 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
     {
         [SerializeField] protected NavMeshAgent _navMeshAgent;
 
+        private Transform _transform;
+        
         private float _moveSpeed;
         private float _turnSpeed;
 
-        protected IPawn CurrentTarget;
-        
+        private Quaternion _currentRotation;
+        private Quaternion _targetRotation;
+
+        public IPawn CurrentTarget { get; set; }
         public Guid PawnID { get; set; }
+        public Vector3 WorldPosition => _transform.position;
         public event Action<Guid> PawnDestroyed;
+        public event Action TargetPawnDestroyed;
 
         public bool DebugLogsEnabled { get; set; } = true;
+
+        private void Awake()
+        {
+            _transform = transform;
+        }
+
+        private void Update()
+        {
+            UpdateRotation();
+        }
 
         public virtual void InitializePawn(PawnData pawnData)
         {
@@ -32,8 +48,49 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Pawns
         }
 
         public abstract void ApplyDamage(int damage);
-        public abstract void SetTarget(IPawn pawn);
-        public abstract void MoveToPosition(Vector3 worldPosition);
+        
+        public virtual void MoveToPosition(Vector3 worldPosition)
+        {
+            _navMeshAgent.SetDestination(worldPosition);
+        }
+        
+        public virtual void Move(Vector3 offset)
+        {
+            _navMeshAgent.SetDestination(_transform.position + offset);
+        }
+        
+        public virtual void SetTarget(IPawn pawn)
+        {
+            CurrentTarget = pawn;
+            CurrentTarget.PawnDestroyed += OnTargetPawnDestroyed;
+            SetLookAtTargetRotation(CurrentTarget.WorldPosition);
+        }
+
+        private void UpdateRotation()
+        {
+            if(CurrentTarget == default)
+            {
+                return;
+            }
+            
+            _currentRotation = _transform.rotation;
+            if(Quaternion.Angle(_currentRotation, _targetRotation) > Single.Epsilon)
+            {
+                _currentRotation = Quaternion.RotateTowards(_currentRotation, _targetRotation, _turnSpeed * Time.deltaTime);
+                _transform.rotation = _currentRotation;
+            }
+        }
+        
+        private void SetLookAtTargetRotation(Vector3 targetWorldPosition)
+        {
+            var targetDirection = (targetWorldPosition - WorldPosition).normalized;
+            _targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
+        }
+        
+        private void OnTargetPawnDestroyed(Guid pawnID)
+        {
+            TargetPawnDestroyed?.Invoke();
+        }
 
         protected virtual void OnDestroy()
         {
