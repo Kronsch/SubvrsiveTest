@@ -23,7 +23,7 @@ namespace SubvrsiveTest.Runtime.Scripts.Source.Game.Weapons
             _attackSpeed = weaponData._attackSpeed;
             _damage = weaponData._damage;
             _bulletSpeed = weaponData._bulletSpeed;
-            _projectileLauncher.InitializeProjectileLauncher(_damage, _bulletSpeed);
+            _projectileLauncher.InitializeProjectileLauncher(_damage, _bulletSpeed, weaponData._projectilePrefab);
             _projectileLauncher.SetSourcePawn(sourcePawn);
 
             if(sourcePawn is Combatant combatant)

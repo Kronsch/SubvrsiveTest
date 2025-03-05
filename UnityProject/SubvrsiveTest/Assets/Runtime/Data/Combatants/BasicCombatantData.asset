@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69cef13765e10d44ca9b301bfc0c8836, type: 3}
-  m_Name: CombatantData
+  m_Name: BasicCombatantData
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2894444993007384522, guid: 0ee8f9386f5611b4f90e19f5a51a7bea, type: 3}
   _moveSpeed: 20
